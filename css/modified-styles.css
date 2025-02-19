@@ -1,0 +1,55 @@
+.Logo-Container {
+    width: 322px;
+    height: auto;
+  }
+  
+  /* Medium screens (Tablets) */
+  @media (max-width: 768px) {
+    .Logo-Container {
+      width: 225px; /* Adjust size for tablets */
+    }
+  }
+  
+  /* Small screens (Mobile) */
+  @media (max-width: 576px) {
+    .Logo-Container {
+      width: 161px; /* Adjust size for phones */
+    }
+  }
+
+.image-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: filter 0.3s ease;
+}
+
+.image-container:hover img {
+    filter: brightness(0.8) sepia(20%) hue-rotate(10deg);
+}
+
+.accordion-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.accordion-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.circle-arrow {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform 0.3s ease-in-out, background-color 0.3s;
+}
+.accordion-button[aria-expanded="true"] .circle-arrow {
+  transform: rotate(180deg);
+  background-color: #042d4e;
+  color: white;
+}
