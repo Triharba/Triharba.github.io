@@ -23,31 +23,44 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand img-fluid d-lg-inline d-md-block" href="index.html"><img src="assets/img/Logo-White.png" alt="Logo" class="Logo-Container" id="Logo-Hover"></a>
+                <a class="navbar-brand img-fluid d-lg-inline d-md-block" href="#page-top"><img src="" alt="Logo" class="Logo-Container" id="Logo-Hover"></a>
                 <script>
-                    window.addEventListener("scroll", function() {
+                    function updateInitialLogo() {
                       let logo = document.getElementById("Logo-Hover");
-                      if (window.scrollY > 50) {
-                        logo.src = "assets/img/Logo-Black.png"; // Change logo when scrolling down
-                      } else {
-                        logo.src = "assets/img/Logo-White.png"; // Revert when at the top
-                      }
-                    });
-                  </script>
-                <script>
-                  window.addEventListener("scroll", function() {
-                    let logo = document.getElementById("navbar-logo");
-                    if (window.scrollY > 50) {
-                      logo.src = "logo-scrolled.png"; // Change logo when scrolling down
-                    } else {
-                      logo.src = "logo.png"; // Revert when at the top
+                      if (!logo) return; // Prevent errors if the element is missing
+                  
+                      // Set initial logo based on screen width
+                      logo.src = window.innerWidth >= 992 ? "assets/img/Logo-White.png" : "assets/img/Logo-Black.png";
                     }
-                  });
-                </script>
+                  
+                    function updateLogoOnScroll() {
+                      let logo = document.getElementById("Logo-Hover");
+                      if (!logo) return;
+                  
+                      if (window.innerWidth >= 992) {
+                        if (window.scrollY > 50 && logo.src !== "assets/img/Logo-Black.png") {
+                          logo.src = "assets/img/Logo-Black.png"; // Change logo when scrolling down
+                        } else if (window.scrollY <= 50 && logo.src !== "assets/img/Logo-White.png") {
+                          logo.src = "assets/img/Logo-White.png"; // Revert when at the top
+                        }
+                      } else if (logo.src !== "assets/img/Logo-White.png") {
+                        logo.src = "assets/img/Logo-Black.png"; // Always white for small screens
+                      }
+                    }
+                  
+                    // Run once on page load
+                    updateInitialLogo();
+                  
+                    // Listen for scroll events
+                    window.addEventListener("scroll", updateLogoOnScroll);
+                  
+                    // Also update logo when resizing the window
+                    window.addEventListener("resize", updateInitialLogo);
+                  </script>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Beranda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#page-top">Beranda</a></li>
                         <li class="nav-item"><a class="nav-link" href="#Tentang Kami">Tentang Kami</a></li>
                         <li class="nav-item"><a class="nav-link" href="#PPDB">PPDB</a></li>
                         <li class="nav-item"><a class="nav-link" href="#Galeri">Galeri</a></li>
@@ -98,14 +111,14 @@
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-1-circle fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Isi Formulir</h3>
-                            <p class="text-muted mb-0">Ambil dan lengkapi formulir pendaftaran secara online (Melalui link di bawah) atau langsung di sekolah.</p>
+                            <p class="text-muted mb-0">Ambil dan lengkapi formulir pendaftaran (file pdf dapat diunduh Melalui link di bawah).</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
                         <div class="mt-5">
                             <div class="mb-2"><i class="bi-2-circle fs-1 text-primary"></i></div>
                             <h3 class="h4 mb-2">Serahkan Dokumen</h3>
-                            <p class="text-muted mb-0">Kirimkan formulir beserta dokumen pendukung berupa FC Akta Kelahiran, FC KK, FC KTP Orang tua dan foto 3x4 1 lembar.</p>
+                            <p class="text-muted mb-0">Kirimkan formulir beserta dokumen pendukung berupa FC Akta Kelahiran, FC KK, FC KTP Orang tua dan foto 3x4 1 lembar kepada pihak sekolah.</p>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 text-center">
@@ -188,7 +201,7 @@
                     </h2>
                 <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
                     <div class="accordion-body">
-                    Sekolah Tribahasa Harapan Bangsa bukan hanya untuk orang Tionghoa. Sekolah ini terbuka bagi semua siswa dari berbagai etnis. Siapa pun yang ingin mengembangkan keterampilan bahasa dan mendapatkan pendidikan berkualitas dipersilakan untuk bergabung bersama kami.
+                    Sekolah Tribahasa Harapan Bangsa bukan hanya untuk orang Tionghoa. Sekolah kami terbuka bagi semua siswa dari berbagai etnis dan latar belakang.   
                     </div>
                 </div>
                 <br></br>
@@ -255,5 +268,12 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script>
+         window.addEventListener("DOMContentLoaded", function () {
+         if (window.location.hash) {
+         let cleanUrl = window.location.pathname + window.location.hash.replace("#", "/").toLowerCase();
+         history.replaceState(null, null, cleanUrl);
+         }
+        </script>
     </body>
 </html>
