@@ -60,12 +60,12 @@
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto my-2 my-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#Tentang Kami">Tentang Kami</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#PPDB">PPDB</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#Galeri">Galeri</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#FAQ">FAQ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#Kontak">Kontak</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/beranda">Beranda</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/tentang-kami">Tentang Kami</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/ppdb">PPDB</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/galeri">Galeri</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/faq">FAQ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/kontak">Kontak</a></li>
                     </ul>
                 </div>
             </div>
@@ -86,7 +86,7 @@
             </div>
         </header>
         <!-- Tentang Kami-->
-        <section class="page-section bg-primary" id="Tentang Kami">
+        <section class="page-section bg-primary" id="tentang-kami">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
@@ -102,7 +102,7 @@
             </div>
         </section>
         <!-- PPDB-->
-        <section class="page-section" id="PPDB">
+        <section class="page-section" id="ppdb">
             <div class="container px-4 px-lg-5">
                 <h2 class="text-center mt-0">Pendaftaran Siswa Baru</h2>
                 <hr class="divider" />
@@ -147,7 +147,7 @@
             </div>
         </section>
         <!-- Galeri-->
-        <div id="Galeri">
+        <div id="galeri">
             <div class="container-fluid p-0">
                 <div class="row g-0">
                     <div class="col-lg-4 col-sm-6 image-container">
@@ -184,7 +184,7 @@
             </div>
         </div>
         <!-- FAQ-->
-        <section id="FAQ" class="page-section bg-primary text-white">
+        <section id="faq" class="page-section bg-primary text-white">
             <div class="container px-4 px-lg-5 text-center">
                 <h4 class="mb-4">- Frequently Asked Question -</h4>
             </div>
@@ -270,36 +270,33 @@
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
-              function scrollToSection(sectionId, updateUrl = true) {
-                let targetSection = document.getElementById(sectionId);
-                if (targetSection) {
-                  targetSection.scrollIntoView({ behavior: "smooth" });
-          
-                  if (updateUrl) {
-                    let newUrl = window.location.origin + window.location.pathname + (sectionId ? "/" + sectionId : "");
-                    history.replaceState(null, null, newUrl);
-                  }
+              function scrollToSection(sectionId) {
+                let section = document.getElementById(sectionId);
+                if (section) {
+                  section.scrollIntoView({ behavior: "smooth" });
                 }
               }
           
               // Handle navbar clicks
-              document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener("click", function (event) {
-                  event.preventDefault(); // Stop default behavior
+              document.querySelectorAll("nav a").forEach(link => {
+                link.addEventListener("click", function (event) {
+                  event.preventDefault(); // Stop default navigation
           
-                  let sectionId = this.getAttribute("href").substring(1);
+                  let sectionId = this.getAttribute("href").substring(1); // Remove "/"
                   scrollToSection(sectionId);
+          
+                  // Update URL without reloading
+                  history.pushState(null, null, "/" + sectionId);
                 });
               });
           
-              // Handle page load (scroll if URL has a section)
-              let pathParts = window.location.pathname.split("/");
-              let lastPart = pathParts[pathParts.length - 1];
-          
-              if (lastPart && document.getElementById(lastPart)) {
-                scrollToSection(lastPart, false);
+              // Scroll to section on page load
+              let path = window.location.pathname.split("/").filter(Boolean).pop();
+              if (path) {
+                scrollToSection(path);
               }
             });
           </script>
+       
     </body>
 </html>
