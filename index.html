@@ -269,11 +269,12 @@
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script>
-         window.addEventListener("DOMContentLoaded", function () {
-         if (window.location.hash) {
-         let cleanUrl = window.location.pathname + window.location.hash.replace("#", "/").toLowerCase();
-         history.replaceState(null, null, cleanUrl);
-         }
+            window.addEventListener("DOMContentLoaded", function () {
+              if (window.location.hash) {
+                let cleanUrl = window.location.pathname + window.location.hash.replace("#", "/").toLowerCase();
+                history.replaceState(null, null, cleanUrl);
+              }
+            });
         </script>
     </body>
 </html>
