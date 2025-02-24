@@ -269,32 +269,28 @@
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    // Check if there's a hash in the URL on page load
-    if (window.location.hash) {
-      let sectionName = window.location.hash.replace("#", "/").toLowerCase();
-      let cleanUrl = window.location.origin + window.location.pathname + sectionName;
-      history.replaceState(null, null, cleanUrl);
-    }
-
-    // Intercept all anchor clicks
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent default hash behavior
-
-        let sectionId = this.getAttribute("href").substring(1); // Get section name
-        let targetSection = document.getElementById(sectionId);
-
-        if (targetSection) {
-          targetSection.scrollIntoView({ behavior: "smooth" });
-
-          // Update URL without hash
-          let cleanUrl = window.location.origin + window.location.pathname + "/" + sectionId.toLowerCase();
-          history.replaceState(null, null, cleanUrl);
-        }
-      });
-    });
-  });
-</script>
+            document.addEventListener("DOMContentLoaded", function () {
+              // Ensure clean URLs on page load
+              if (window.location.hash) {
+                let sectionName = window.location.hash.replace("#", "").toLowerCase();
+                let cleanUrl = window.location.origin + window.location.pathname + sectionName;
+                history.replaceState(null, null, cleanUrl);
+              }
+          
+              // Intercept all anchor clicks
+              document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener("click", function (event) {
+                  event.preventDefault(); // Prevent default hash behavior
+          
+                  let sectionId = this.getAttribute("href").substring(1).toLowerCase(); // Get section name
+                  let basePath = window.location.origin + window.location.pathname.replace(/\/[^/]*$/, ""); // Keep only the base path
+                  let cleanUrl = basePath + "/" + sectionId;
+          
+                  history.replaceState(null, null, cleanUrl); // Update URL
+                  document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" }); // Scroll smoothly
+                });
+              });
+            });
+          </script>
     </body>
 </html>
