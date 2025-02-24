@@ -269,34 +269,34 @@
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script>
-            document.addEventListener("DOMContentLoaded", function () {
-              function scrollToSection(sectionId) {
-                let section = document.getElementById(sectionId);
-                if (section) {
-                  section.scrollIntoView({ behavior: "smooth" });
-                }
-              }
-          
-              // Handle navbar clicks
-              document.querySelectorAll("nav a").forEach(link => {
-                link.addEventListener("click", function (event) {
-                  event.preventDefault(); // Stop default navigation
-          
-                  let sectionId = this.getAttribute("href").substring(1); // Remove "/"
-                  scrollToSection(sectionId);
-          
-                  // Update URL without reloading
-                  history.pushState(null, null, "/" + sectionId);
-                });
-              });
-          
-              // Scroll to section on page load
-              let path = window.location.pathname.split("/").filter(Boolean).pop();
-              if (path) {
-                scrollToSection(path);
-              }
-            });
-          </script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function scrollToSection(sectionId) {
+      let section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    // Handle navbar clicks
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.addEventListener("click", function (event) {
+        event.preventDefault(); // Stop default navigation
+
+        let sectionId = this.getAttribute("href").replace("/", ""); // Get section name
+        scrollToSection(sectionId);
+
+        // Update URL without `#`
+        history.pushState(null, null, "/" + sectionId);
+      });
+    });
+
+    // Scroll to correct section when page loads
+    let path = window.location.pathname.replace("/", "");
+    if (path) {
+      scrollToSection(path);
+    }
+  });
+</script>
        
     </body>
 </html>
